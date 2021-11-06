@@ -8,3 +8,5 @@ if __name__=='__main__':
     print(1)
 
 
+# [TODO] ADD IMPORTS ABSOLUTE PATH
+# [TODO] ADD GIT IGNORE

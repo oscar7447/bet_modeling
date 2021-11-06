@@ -8,6 +8,11 @@ from abstract_extract import data_extraction
 
 
 class data_from_transfermrkt(data_extraction):
+    """[summary]
+
+    Args:
+        data_extraction ([type]): [description]
+    """
 
     def code_generation():
         """
@@ -18,10 +23,11 @@ class data_from_transfermrkt(data_extraction):
     def extract_data(persist_data:bool):
 
         """
-
         Extract historical transfer data from transfermarkt.com 
         that contains, arrivals, departures, money invested and money spent
-        
+
+        Returns:
+            [persist_data]: [True or False if you want to save the data frame]
         """
 
 
@@ -89,7 +95,7 @@ class data_from_transfermrkt(data_extraction):
             all_clubs = pd.concat([all_df, all_clubs])
 
             if persist_data:
-                all_clubs.to_pickle("transfer_information.pkl")
+                all_clubs.to_pickle("files/transfer_information.pkl")
 
             return all_clubs
 

@@ -78,7 +78,7 @@ class get_data_fbref(data_extraction):
                 , 'opponent', 'possession','season']
 
         if persist_data:
-            all_df[cols].to_pickle('match_historical_data.pkl')
+            all_df[cols].to_pickle('files/match_historical_data.pkl')
 
         return all_df[cols], not_found
 
