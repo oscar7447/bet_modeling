@@ -55,3 +55,5 @@ codes_transfermrkt = {
     'real-betis':'150'
     
 }
+
+# [TODO] CHANGE CODES FBREF TO CODES GENETARION FUNCTION FOR KEEP STRUCTURE

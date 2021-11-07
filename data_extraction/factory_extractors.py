@@ -7,7 +7,7 @@ class FactoryExtractors(AbstractFactory):
     """
     Factory method to get the different data extractors used in the system
     """
-    def get_concrete(extractor_name = ""):
+    def get_concrete(extractor_name):
     
 
         data_extractors = {

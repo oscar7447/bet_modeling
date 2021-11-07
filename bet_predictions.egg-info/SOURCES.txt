@@ -1,0 +1,6 @@
+README.md
+setup.py
+bet_predictions.egg-info/PKG-INFO
+bet_predictions.egg-info/SOURCES.txt
+bet_predictions.egg-info/dependency_links.txt
+bet_predictions.egg-info/top_level.txt

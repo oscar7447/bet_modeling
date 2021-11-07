@@ -14,7 +14,9 @@ class data_from_transfermrkt(data_extraction):
         data_extraction ([type]): [description]
     """
 
-    def code_generation():
+    def codes_generation():
+        ## [TODO] Add code that extracts 
+        # the dictionary from the page in order to build the URL's
         """
         Generate codes and club names for URL generation
         """
@@ -27,12 +29,13 @@ class data_from_transfermrkt(data_extraction):
         that contains, arrivals, departures, money invested and money spent
 
         Returns:
-            [persist_data]: [True or False if you want to save the data frame]
+            [persist_data]: [True or False if you want to save the dataframe]
         """
-
+        # [TODO] Add output of code generator function and replace the constant import
+        # "codes_transfermkt"
 
         all_clubs = pd.DataFrame(index=[0]) 
-
+        
         for i in codes_transfermrkt.keys():
             URL = "https://www.transfermarkt.com/"+str(i)+"/alletransfers/verein/"+str(codes_transfermrkt[i])
             headers = {"User-Agent":"Mozilla/5.0"}
