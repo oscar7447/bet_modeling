@@ -7,7 +7,7 @@ import unidecode
 from abstract_extract import data_extraction
 
 
-class data_from_transfermrkt(data_extraction):
+class GetDataTransfermarket(data_extraction):
     """[summary]
 
     Args:
@@ -35,7 +35,7 @@ class data_from_transfermrkt(data_extraction):
         # "codes_transfermkt"
 
         all_clubs = pd.DataFrame(index=[0]) 
-        
+
         for i in codes_transfermrkt.keys():
             URL = "https://www.transfermarkt.com/"+str(i)+"/alletransfers/verein/"+str(codes_transfermrkt[i])
             headers = {"User-Agent":"Mozilla/5.0"}
