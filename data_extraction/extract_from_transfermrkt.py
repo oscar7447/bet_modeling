@@ -5,7 +5,7 @@ from data_extraction.constants import codes_transfermrkt
 import numpy as np
 import unidecode
 from abstract_extract import data_extraction
-
+import re
 
 class GetDataTransfermarket(data_extraction):
     """[summary]
@@ -13,16 +13,36 @@ class GetDataTransfermarket(data_extraction):
     Args:
         data_extraction ([type]): [description]
     """
-
-    def codes_generation():
-        ## [TODO] Add code that extracts 
-        # the dictionary from the page in order to build the URL's
+    @staticmethod
+    def codes_generation(season_init = 2002, season_end = 2021):
         """
         Generate codes and club names for URL generation
         """
-        pass
+        teams_links={}
 
-    def extract_data(persist_data:bool):
+        teams_season = pd.DataFrame([])
+        teams_season['name'] = []
+        teams_season['codes'] = []
+        for season_id in range(season_init, season_end):
+            URL = str("https://www.transfermarkt.com/laliga/startseite/wettbewerb/ES1/plus/?saison_id="+str(season_id))
+            headers = {"User-Agent":"Mozilla/5.0"}
+            page = requests.get(URL, headers= headers)
+            soup = BeautifulSoup(page.content, "html.parser")
+
+
+            rows = 0
+            soup = soup.findAll("table")[12]
+            links = set([search.get("href") for search in soup.findAll("a")])
+            teams_links[str(season_id)] = links
+            teams = [i.split('/')[1] for i in teams_links[str(season_id)] if len(i)>10]
+            codes = [i.split('/')[4] for i in teams_links[str(season_id)] if len(i)>10]
+            tmp_teams = pd.DataFrame(list(zip(teams, codes)), columns=['name', 'codes'])
+            teams_season = pd.concat([tmp_teams, teams_season], ignore_index=True)
+            teams_season.drop_duplicates(inplace=True)
+            teams_season = teams_season.sample(5)
+        return teams_season
+
+    def extract_data(self, persist_data:bool):
 
         """
         Extract historical transfer data from transfermarkt.com 
@@ -35,9 +55,9 @@ class GetDataTransfermarket(data_extraction):
         # "codes_transfermkt"
 
         all_clubs = pd.DataFrame(index=[0]) 
-
-        for i in codes_transfermrkt.keys():
-            URL = "https://www.transfermarkt.com/"+str(i)+"/alletransfers/verein/"+str(codes_transfermrkt[i])
+        codes_transfermrkt = self.codes_generation()
+        for _, i in codes_transfermrkt.iterrows():
+            URL = "https://www.transfermarkt.com/"+str(i['name'])+"/alletransfers/verein/"+str(i['codes'])
             headers = {"User-Agent":"Mozilla/5.0"}
             page = requests.get(URL, headers= headers)
             soup = BeautifulSoup(page.content, "html.parser")
@@ -45,7 +65,6 @@ class GetDataTransfermarket(data_extraction):
             new_table = pd.DataFrame(index=[0]) 
             col_names=['name', 'drop', 'from_to', 'value']
 
-            row_marker = 0
             all_df = pd.DataFrame(index=[0]) 
             for k in range(len(soup.find_all(class_ = 'box'))):
                 df= pd.DataFrame(index=[0]) 

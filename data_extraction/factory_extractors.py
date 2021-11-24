@@ -12,8 +12,8 @@ class FactoryExtractors(AbstractFactory):
 
         data_extractors = {
             
-            "transfermrkt": GetDataTransfermarket,
-            "fbref": GetDataFbref
+            "transfermrkt": GetDataTransfermarket(),
+            "fbref": GetDataFbref()
    
         }
         
