@@ -39,7 +39,6 @@ class GetDataTransfermarket(data_extraction):
             tmp_teams = pd.DataFrame(list(zip(teams, codes)), columns=['name', 'codes'])
             teams_season = pd.concat([tmp_teams, teams_season], ignore_index=True)
             teams_season.drop_duplicates(inplace=True)
-            teams_season = teams_season.sample(5)
         return teams_season
 
     def extract_data(self, persist_data:bool):
@@ -63,7 +62,7 @@ class GetDataTransfermarket(data_extraction):
             soup = BeautifulSoup(page.content, "html.parser")
 
             new_table = pd.DataFrame(index=[0]) 
-            col_names=['name', 'drop', 'from_to', 'value']
+            col_names = ['name', 'drop', 'from_to', 'value']
 
             all_df = pd.DataFrame(index=[0]) 
             for k in range(len(soup.find_all(class_ = 'box'))):
@@ -112,12 +111,12 @@ class GetDataTransfermarket(data_extraction):
                     continue
                 
                 
-            all_df['club_name'] = i
+            all_df['club_name'] = i['name']
             
             all_clubs = pd.concat([all_df, all_clubs])
 
-            if persist_data:
-                all_clubs.to_pickle("files/transfer_information.pkl")
+        if persist_data:
+            all_clubs.to_pickle("files/transfer_information.pkl")
 
-            return all_clubs
+        return all_clubs
 
