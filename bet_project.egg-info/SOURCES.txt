@@ -1,0 +1,6 @@
+README.md
+setup.py
+bet_project.egg-info/PKG-INFO
+bet_project.egg-info/SOURCES.txt
+bet_project.egg-info/dependency_links.txt
+bet_project.egg-info/top_level.txt
