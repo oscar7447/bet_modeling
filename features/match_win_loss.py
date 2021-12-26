@@ -3,7 +3,8 @@ import numpy as np
 
 def match_win_loss(name:str, date_match:str, n_previous_matches:int, la_liga_df):
      
-     """Creates the win-loss-draw total and percentage of n previous matches
+     """
+     Creates the win-loss-draw total and percentage of n previous matches
 
      Args:
          name (str): [Name of the team to calculate]
@@ -23,7 +24,8 @@ def match_win_loss(name:str, date_match:str, n_previous_matches:int, la_liga_df)
                            &(la_liga_df['time']<date_match)].head(n_previous_matches)
     
      matches['new_result'] = np.where(matches['result']=='W', 'number_of_win'
-         , np.where(matches['result']=='L', 'number_of_loss', np.where(matches['result']=='D', 'number_of_draw', 'None')))
+                            , np.where(matches['result']=='L', 'number_of_loss'
+                            , np.where(matches['result']=='D', 'number_of_draw', 'None')))
 
     ### Previous matches win, loss and draw by venue (home, away)
      win_loss = matches.groupby(['new_result','venue']).count().T.iloc[[0]]

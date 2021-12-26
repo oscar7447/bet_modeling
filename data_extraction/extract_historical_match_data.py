@@ -46,7 +46,6 @@ class GetDataFbref(data_extraction):
                     URL = "https://fbref.com/en/squads/"+codes_fbref[team_name]+"/" \
                     +str(historical_years[i])+"-"+str(historical_years[i+1])+"/"+team_name+"-Stats"
                     
-                    print(URL)
                     page = requests.get(URL)
                     soup = BeautifulSoup(page.content, "html.parser")
                     try:
