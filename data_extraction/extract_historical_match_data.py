@@ -6,6 +6,7 @@ import numpy as np
 import unidecode
 from abstract_extract import data_extraction
 import pickle
+from general_utils.datasource_enums import DataSourceEnum
 
 
 class GetDataFbref(data_extraction):
@@ -46,7 +47,6 @@ class GetDataFbref(data_extraction):
                     URL = "https://fbref.com/en/squads/"+codes_fbref[team_name]+"/" \
                     +str(historical_years[i])+"-"+str(historical_years[i+1])+"/"+team_name+"-Stats"
                     
-                    print(URL)
                     page = requests.get(URL)
                     soup = BeautifulSoup(page.content, "html.parser")
                     try:
@@ -78,7 +78,8 @@ class GetDataFbref(data_extraction):
             all_df.dropna(subset=['comp'], inplace=True)
 
             all_teams = pd.concat([all_teams, all_df[__use_columns__]])
-            
+            all_teams = data_extraction.standardize_names(all_teams, DataSourceEnum.fbref)
+
 
 
 
@@ -88,7 +89,6 @@ class GetDataFbref(data_extraction):
         if persist_data:
             with open('/files/match_historical_data.pkl', 'wb') as f:
                 pickle.dump(object, f)
-           # all_teams.to_pickle('/files/match_historical_data.pkl')
 
         return all_teams, not_found
 
