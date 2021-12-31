@@ -6,6 +6,7 @@ import numpy as np
 import unidecode
 from abstract_extract import data_extraction
 import re
+from general_utils.datasource_enums import DataSourceEnum
 
 class GetDataTransfermarket(data_extraction):
     """[summary]
@@ -111,10 +112,10 @@ class GetDataTransfermarket(data_extraction):
                     continue
                 
                 
-            all_df['club_name'] = i['name']
+            all_df['team_name'] = i['name']
             
             all_clubs = pd.concat([all_df, all_clubs])
-
+            all_clubs = data_extraction.standardize_names(all_clubs, DataSourceEnum.transfermarket)
         if persist_data:
             all_clubs.to_pickle("files/transfer_information.pkl")
 
