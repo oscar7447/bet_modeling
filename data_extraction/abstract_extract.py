@@ -14,7 +14,7 @@ class data_extraction(ABC):
 
         Args:
             df ([Dataframe]): DF containing the scrapped information
-            data_source (str): name of the datasource
+            data_source (enum): Datasource enum
 
         Returns:
             [type]: [description]
