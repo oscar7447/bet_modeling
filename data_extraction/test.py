@@ -8,7 +8,7 @@ if __name__=='__main__':
     matchhistorical = pd.read_pickle('files/match_historical_data.pkl')
     transer_.rename(columns={'club_name':'team_name'}, inplace=True)
     for i in LaligaTeamEnums:
-        matchhistorical['team_name'] = np.where(matchhistorical['team_name']==i[DataSourceEnum.fbref]
+        matchhistorical['team_name'] = np.where(matchhistorical['team_name']==i[DataSourceEnum.f]
                                         , i['name']
                                         , matchhistorical['team_name'])
 
