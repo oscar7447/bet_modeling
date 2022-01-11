@@ -1,8 +1,10 @@
 import pandas as pd
 import numpy as np
-from features.table_simulation import table_simulation
+from features.calculation.utils.table_simulation import table_simulation
+from general_utils.cache_system import cache_disk_dataframes
 
-def simulation_end_season(df_matches, competition, season, current_matchweek):
+@cache_disk_dataframes('cache')
+def simulation_end_season(df_matches, competition, season, matchweek):
 
 
     """ 
@@ -25,7 +27,7 @@ def simulation_end_season(df_matches, competition, season, current_matchweek):
     total_matches = 38
     sims = 5000
 
-    remaining_matches = total_matches+1-current_matchweek
+    remaining_matches = total_matches+1-matchweek
     season_df = df_matches[df_matches['season']==season]
     season_df = season_df[season_df['comp']==competition]
 
@@ -34,11 +36,11 @@ def simulation_end_season(df_matches, competition, season, current_matchweek):
 
     season_df['matchweek'] = season_df['matchweek'].astype(int)
     #season_df[season_df['matchweek']>=current_matchweek]
-    if current_matchweek==1:
+    if matchweek==1:
         season_points = np.random.choice(points_vector, remaining_matches)
-    elif current_matchweek>1:
+    elif matchweek>1:
         
-        table = table_simulation(df_matches, competition, season, current_matchweek)
+        table = table_simulation(df_matches, competition, season, matchweek)
         season_points = np.random.choice(points_vector, remaining_matches)
     for j in range(sims):
         table['tmp_points'] = np.zeros(len(table))
@@ -61,5 +63,14 @@ def simulation_end_season(df_matches, competition, season, current_matchweek):
     probs_top5 = tmp.loc[1:5].sum()
     probs_descenso = tmp[tmp.shape[0]-2:tmp.shape[0]].sum()
     probs_champion = tmp.loc[1]
+    probs = pd.DataFrame(probs_top5).merge(pd.DataFrame(probs_champion)
+                                        , left_index=True
+                                        , right_index=True)\
+                                        .rename(columns={0:'probs_top_5'
+                                                        ,1:'probs_champion'})
+    probs = probs.merge(pd.DataFrame(probs_descenso)
+                        , left_index=True
+                        , right_index=True).rename(columns={0:'probs_descenso'})
 
-    return probs_top5, probs_descenso, probs_champion
+
+    return probs

@@ -1,6 +1,6 @@
-from data_extraction.extract_from_transfermrkt import GetDataTransfermarket
-from data_extraction.extract_historical_match_data import GetDataFbref
-from abstract_factory import AbstractFactory
+from data_extraction.extractors.extract_from_transfermrkt import GetDataTransfermarket
+from data_extraction.extractors.extract_historical_match_data import GetDataFbref
+from factory.abstract_factory import AbstractFactory
 
 
 class FactoryExtractors(AbstractFactory):

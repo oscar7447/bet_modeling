@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
 import pandas as pd
-from data_extraction.constants import codes_transfermrkt
+from data_extraction.utils.constants import codes_transfermrkt
 import numpy as np
 import unidecode
 from abstract_extract import data_extraction

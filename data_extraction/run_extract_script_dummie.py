@@ -1,5 +1,5 @@
 import pandas as pd
-from data_extraction.factory_extractors import FactoryExtractors
+from data_extraction.extractor_factory import FactoryExtractors
 if __name__=='__main__':
 
     extract = FactoryExtractors

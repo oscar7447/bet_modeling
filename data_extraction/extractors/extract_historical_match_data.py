@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
 import pandas as pd
-from data_extraction.constants import historical_years, codes_fbref
+from data_extraction.utils.constants import historical_years, codes_fbref
 import numpy as np
 import unidecode
 from abstract_extract import data_extraction

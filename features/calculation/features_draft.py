@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from features.table_simulation import table_simulation
+from features.calculation.utils.table_simulation import table_simulation
 
 if __name__=='__main__':
     competition='La Liga'
