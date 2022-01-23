@@ -26,7 +26,7 @@ def simulation_end_season(df_matches, competition, season, matchweek):
     prob_vector = [1/3, 1/3, 1/3]
     total_matches = 38
     sims = 5000
-
+    ## [TODO] CALCULATE MATCHWEEK WITH TIME(DATE OF THE MATCH) 
     remaining_matches = total_matches+1-matchweek
     season_df = df_matches[df_matches['season']==season]
     season_df = season_df[season_df['comp']==competition]

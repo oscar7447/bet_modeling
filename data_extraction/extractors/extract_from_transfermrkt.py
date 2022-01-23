@@ -51,8 +51,6 @@ class GetDataTransfermarket(data_extraction):
         Returns:
             [persist_data]: [True or False if you want to save the dataframe]
         """
-        # [TODO] Add output of code generator function and replace the constant import
-        # "codes_transfermkt"
 
         all_clubs = pd.DataFrame(index=[0]) 
         codes_transfermrkt = self.codes_generation()
