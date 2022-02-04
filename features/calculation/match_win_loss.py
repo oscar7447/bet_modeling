@@ -6,6 +6,12 @@ from features.abstract_feature import AbstractFeature
 class MatchWinLoss(AbstractFeature):
 
 
+
+    __entities__ = ['home_team', 'away_team', 'season' \
+                    , 'date', 'competition', 'matchweek']
+    __keys_away__ = ['away_team', 'date']
+    __keys_home__ = ['home_team', 'date']
+
     def calculate(la_liga_df:pd.DataFrame, df_games:pd.DataFrame): 
         
         """
@@ -56,4 +62,5 @@ class MatchWinLoss(AbstractFeature):
                         , left_on=['away_team','date']
                         , right_on=['team_name','date']
                         , how='left').drop(columns=['team_name'])
+                        
         return df_games

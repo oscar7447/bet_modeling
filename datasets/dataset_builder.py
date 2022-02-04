@@ -12,7 +12,7 @@ if __name__=='__main__':
     df = features.get_concrete('match win loss').calculate(matchhistorical, df_games)
     df = df_games.merge(df, on=keys, how='left')
     
-    df_games = df_games.merge(features.get_concrete('probs end season')\
+    df = df.merge(features.get_concrete('probs end season')\
                             .calculate(matchhistorical, df_games)\
                             , on=keys, how='left')
 
