@@ -6,7 +6,13 @@ import pandas as pd
 class ProbsEndSeason(AbstractFeature):
 
 
-    def calculate(df_matches, df_games):
+    def calculate(df_matches: pd.DataFrame, df_games:pd.DataFrame)->pd.DataFrame:
+
+        """
+        Calculates the probability of ending in the top 5, champion and descenso
+
+        """
+
         home_df = pd.DataFrame()
         away_df = pd.DataFrame()
 

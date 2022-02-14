@@ -3,7 +3,7 @@ import numpy as np
 from features.calculation.utils.calculation_win_loss_percentage import calculation_win_loss_percentage
 from features.abstract_feature import AbstractFeature
 
-class MatchWinLoss(AbstractFeature):
+class MatchWinLossMatch(AbstractFeature):
 
 
 
@@ -29,25 +29,31 @@ class MatchWinLoss(AbstractFeature):
         away_df = pd.DataFrame()
 
         for _, i in df_games.iterrows():
+            
+            la_liga_df_tmp =  la_liga_df[((la_liga_df['team_name']== i['away_team']) & \
+                            (la_liga_df['opponent']== i['home_team'])) | \
+                            ((la_liga_df['team_name']== i['home_team']) &
+                            (la_liga_df['opponent']== i['away_team']))]
 
-            home_df_tmp = calculation_win_loss_percentage(la_liga_df
+
+            home_df_tmp = calculation_win_loss_percentage(la_liga_df_tmp
                                                     , i['home_team']
                                                     , i['date']
                                                     , n_previous_matches
                                                     , i['competition'])
 
-            home_df_tmp.columns = [i+str('_home') if i not in ('team_name', 'date') \
+            home_df_tmp.columns = [i+str('_home_same_team') if i not in ('team_name', 'date') \
                                     else i for i in home_df_tmp.columns ]
             home_df = pd.concat([home_df, home_df_tmp])
             
 
-            away_df_tmp = calculation_win_loss_percentage(la_liga_df
+            away_df_tmp = calculation_win_loss_percentage(la_liga_df_tmp
                                                     , i['away_team']
                                                     , i['date']
                                                     , n_previous_matches
                                                     , i['competition'])
 
-            away_df_tmp.columns = [i+str('_away') if i not in ('team_name', 'date') \
+            away_df_tmp.columns = [i+str('_away_same_team') if i not in ('team_name', 'date') \
                                     else i for i in away_df_tmp.columns]
 
             away_df = pd.concat([away_df, away_df_tmp])

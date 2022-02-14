@@ -2,7 +2,11 @@ import pandas as pd
 import numpy as np   
     
     
-def calculation_win_loss_percentage(la_liga_df, team_name, date, n_previous_matches, competition=None):
+def calculation_win_loss_percentage(la_liga_df:pd.DataFrame, 
+                                    team_name:str, 
+                                    date:str, 
+                                    n_previous_matches:int,
+                                    competition=None)-> pd.DataFrame:
 
     """
     Creates the win-loss-draw total and percentage of n previous matches
@@ -13,7 +17,6 @@ def calculation_win_loss_percentage(la_liga_df, team_name, date, n_previous_matc
         n_previous_matches (int): [Number of previous matches to take into account]
         la_liga_df (DataFrame): [DataFrame of raw matches information from fbref]
         """
-    n_previous_matches = 5
     results = pd.DataFrame(columns=['number_of_draw', 'number_of_loss', 'number_of_win'
                     , 'number_of_draw_away', 'number_of_draw_home', 'number_of_loss_away'
                     , 'number_of_loss_home', 'number_of_loss_neutral', 'number_of_win_away'
@@ -58,7 +61,6 @@ def calculation_win_loss_percentage(la_liga_df, team_name, date, n_previous_matc
     results['percentage_away_win'] = results['number_of_win_away']/number_of_away_games
     results['percentage_away_loss'] = results['number_of_loss_away']/number_of_away_games
     results['percentage_away_draw'] = results['number_of_draw_away']/number_of_away_games
-
     results['team_name'] = team_name
     results['date'] = date
 

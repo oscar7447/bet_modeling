@@ -2,7 +2,7 @@ import pandas as pd
 
 
 def game_dataset_builder():
-        game = {'home_team':['atletico_madrid','real-madrid'],
+        game = {'home_team':['atletico_madrid','real_madrid'],
             'away_team':['barcelona', 'barcelona'],
             'season':['2019-2020','2019-2020'],
             'date':  ['2020-06-12', '2020-07-12'],
