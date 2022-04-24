@@ -9,7 +9,7 @@ if __name__=='__main__':
     df_games = game_dataset_builder()
     features =  FeatureFactory
 
-    df = df_games.merge(features.get_concrete('match win loss same team')\
+    df = df_games.merge(features.get_concrete('transfer information')\
                         .calculate(matchhistorical, df_games), 
                         on=keys, 
                         how='left')
