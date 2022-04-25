@@ -1,7 +1,8 @@
+from re import L
 import pandas as pd
 import numpy as np
 from features.abstract_feature import AbstractFeature
-
+from datasets.extractors.load_transfer_data import LoadTransferData
 class TransferData(AbstractFeature):
 
 
@@ -23,7 +24,7 @@ class TransferData(AbstractFeature):
         """
 
         ## Transformation of season column. Eventually move it to the scrapping function
-        transfer = pd.read_pickle('files/transfer_information_v3.pkl')
+        transfer = LoadTransferData.load_data()
         transfer['season'] = transfer['season'].str.split('/') 
         transfer = transfer[transfer.isna().sum(axis=1)==0]
         transfer.reset_index(drop=True, inplace=True)

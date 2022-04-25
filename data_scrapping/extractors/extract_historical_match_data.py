@@ -33,7 +33,7 @@ class GetDataFbref(data_extraction):
         
 
         """
-        __use_columns__ = ['team_name','time', 'comp', 'round', 'dayofweek'
+        _use_columns = ['team_name','time', 'comp', 'round', 'dayofweek'
                 , 'venue', 'result', 'goals_for', 'goals_against'
                 , 'opponent', 'possession','season']
 
@@ -77,7 +77,7 @@ class GetDataFbref(data_extraction):
             all_df['team_name'] = team_name
             all_df.dropna(subset=['comp'], inplace=True)
 
-            all_teams = pd.concat([all_teams, all_df[__use_columns__]])
+            all_teams = pd.concat([all_teams, all_df[_use_columns]])
             all_teams = data_extraction.standardize_names(all_teams, DataSourceEnum.fbref)
 
 
