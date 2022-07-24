@@ -15,18 +15,41 @@ class TargetVariable(AbstractFeature):
     def calculate(la_liga_df:pd.DataFrame, df_games:pd.DataFrame): 
         
         """
-       
+        Get the target variable, in this case, the target variable is calculated
+        with respect home venue, for example:
+            - If away loss, the home win. If away win the home loss. So, the three 
+            variables will be: home_win, home_loss, draw
         """
-        n_previous_matches = 10
-        home_df = pd.DataFrame()
-        away_df = pd.DataFrame()
+        
+        la_liga_df['home_team'] = np.where(la_liga_df['venue']=='Home', 
+                                            la_liga_df['team_name'], 
+                                            la_liga_df['opponent'])
+        la_liga_df['away_team'] = np.where(la_liga_df['venue']=='Away', 
+                                            la_liga_df['team_name'], 
+                                            la_liga_df['opponent'])
+        
+        la_liga_df.rename(columns={'comp':'competition', 'time':'date'}, inplace=True)
 
-        for _, i in df_games.iterrows():
-            
-            la_liga_df_tmp =  la_liga_df[((la_liga_df['team_name']== i['away_team']) & \
-                            (la_liga_df['opponent']== i['home_team'])) | \
-                            ((la_liga_df['team_name']== i['home_team']) &
-                            (la_liga_df['opponent']== i['away_team']))]
+        la_liga_df['matchweek'] = la_liga_df['round'].str.split(' ', expand=True)[1]
+        la_liga_df['matchweek'] = la_liga_df['matchweek'].astype(int)
+        cols = list(df_games.columns)
+        la_liga_df['y_value'] = np.where((la_liga_df['team_name']==la_liga_df['home_team'])
+                                        &(la_liga_df['result']=='L'), 
+                                            'home_loss',
+                                np.where(
+                                    (la_liga_df['team_name']==la_liga_df['away_team'])
+                                    &(la_liga_df['result']=='L'), 
+                                    'home_win',  
+                                np.where(
+                                    (la_liga_df['team_name']==la_liga_df['away_team'])
+                                    &(la_liga_df['result']=='W'), 
+                                    'home_loss',
+                                np.where(
+                                    (la_liga_df['team_name']==la_liga_df['home_team'])
+                                    &(la_liga_df['result']=='W'), 
+                                    'home_win', 'draw'))))
+
+        df = la_liga_df[cols+['y_value']].merge(df_games, on = cols)
 
 
-        return la_liga_df_tmp
+        return df.drop_duplicates()

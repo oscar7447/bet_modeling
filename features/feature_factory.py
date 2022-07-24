@@ -7,7 +7,7 @@ from features.calculation.target_feature import TargetVariable
 
 class FeatureFactory(AbstractFactory):
 
-    def get_concrete(extractor_name): 
+    def get_concrete(self, extractor_name): 
     
 
         feature_extractors = {

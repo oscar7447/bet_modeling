@@ -6,7 +6,7 @@ import numpy as np
 import unidecode
 from abstract_extract import data_extraction
 import re
-from general_utils.datasource_enums import DataSourceEnum
+from general_utils.enums.datasource_enums import DataSourceEnum
 
 class GetDataTransfermarket(data_extraction):
     """[summary]

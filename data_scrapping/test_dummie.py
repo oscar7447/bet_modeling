@@ -1,5 +1,5 @@
-from general_utils.teams_enums import LaligaTeamEnums
-from general_utils.datasource_enums import DataSourceEnum
+from general_utils.enums.teams_enums import LaligaTeamEnums
+from general_utils.enums.datasource_enums import DataSourceEnum
 import numpy as np
 import pandas as pd
 import unidecode

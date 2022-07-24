@@ -1,5 +1,5 @@
 from training.extract_train_test_data import ExtractTrainTestData
-from general_utils.competitions_enums import CompetitionEnum
+from general_utils.enums.competitions_enums import CompetitionEnum
 if __name__=='__main__':
     season_train_init = '2002-2003'
     season_train_end = '2016-2017'

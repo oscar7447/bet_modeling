@@ -6,7 +6,7 @@ import numpy as np
 import unidecode
 from abstract_extract import data_extraction
 import pickle
-from general_utils.datasource_enums import DataSourceEnum
+from general_utils.enums.datasource_enums import DataSourceEnum
 
 
 class GetDataFbref(data_extraction):

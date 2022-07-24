@@ -1,5 +1,5 @@
 from enum import Enum
-from general_utils.datasource_enums import DataSourceEnum
+from general_utils.enums.datasource_enums import DataSourceEnum
 DataSourceEnum.transfermarket
 
 class LaligaTeamEnums(dict, Enum):

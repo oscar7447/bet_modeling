@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 import enum
 import numpy as np
-from general_utils.teams_enums import LaligaTeamEnums
+from general_utils.enums.teams_enums import LaligaTeamEnums
 class data_extraction(ABC):
  
     @abstractmethod

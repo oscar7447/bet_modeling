@@ -1,14 +1,15 @@
 import numpy as np
 import pandas as pd
 from datasets.extractors.load_historical_games_data import LoadHistoricalGamesData
+from general_utils.enums.competitions_enums import CompetitionEnum
 
 class ExtractTrainTestData:
-    _keys = ['home_team', 'away_team', 'competition', 'date', 'matchweek']
+    _keys = ['home_team', 'away_team', 'competition', 'date', 'matchweek', 'season']
 
 
     def get_train_test_data(self, season_init:str, 
                             season_end:str, 
-                            competition:str)->pd.DataFrame:
+                            competition:CompetitionEnum)->pd.DataFrame:
 
         """
         Gets the train or test data and put in the correct format from historical 
@@ -32,6 +33,6 @@ class ExtractTrainTestData:
 
         tmp_games_df['matchweek'] = tmp_games_df['round'].str.split(' ', expand=True)[1]
         tmp_games_df['matchweek'] = tmp_games_df['matchweek'].astype(int)
+            
         
-        tmp_games_df.drop_duplicates(inplace=True)
-        return tmp_games_df[self._keys]
+        return tmp_games_df[self._keys].drop_duplicates()
